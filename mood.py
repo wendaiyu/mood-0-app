@@ -16,7 +16,7 @@ with col1:
         "😌 平静放松","🥺 想哭","😢 难过","😡 烦躁","😨 焦虑","🥰 被爱到了","🤔 好像都不是"
     ], key="mood_select")
 with col2:
-    mood_desc = st.text_input("💭 为什么会这样呢？（选填）", value="", placeholder="比如：因为下班早/因为吃到了好吃的...")
+    mood_desc = st.text_input("💭 为什么会这样呢？（选填）", value="", placeholder="比如：因为因为吃到了好吃的...")
 final_mood = f"{mood} {mood_desc}".strip()
 note = st.text_area("写点什么吧！对今天的你",height=100)
 
