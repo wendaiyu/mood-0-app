@@ -17,6 +17,8 @@ mood = st.selectbox("今天的情绪be like",[ "😊 开心",
         "😨 焦虑",
         "🥰 被爱到了",
         "🤔 好像都不是"])
+if mood=="🤔 好像都不是":
+        mood=st.text_input("那用一句话描述吧，你的感受！")
 note = st.text_area("写点什么...(今天做了什么，想了什么，想做什么，没做成什么）",height=100)
 
 if st.button("保存"):
