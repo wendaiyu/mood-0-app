@@ -27,18 +27,17 @@ high = st.number_input("最高温（°C）", value=28, step=1)
 
 st.divider()
 tdl_text = st.text_area("写一点明天要做的事情吧！一条也行！",height=120)
+
 if st.button("📥 保存到 D 盘"):
     # 1. D盘路径（绝对路径）
     save_dir = r"D:\我\daily record"
     os.makedirs(save_dir, exist_ok=True)   # 没有文件夹就自动创建
     file_path = os.path.join(save_dir, "生活手账.txt")
-    
     if "雨" in weather:
         tip = "记得带 umbrella 和 coat 🌂"
     else:
         tip = "不用带伞，放心出门"
-        
-     with open(file_path, "a", encoding="utf-8") as f:
+    with open(file_path, "a", encoding="utf-8") as f:
         f.write("="*30 + "\n")
         f.write(f"记录时间：{date.today()}\n")
         f.write(f"心情：{mood}\n")
