@@ -79,7 +79,7 @@ elif "雾" in combined_weather_str or "霾" in combined_weather_str:
     tip = "😷 空气质量一般，出门戴口罩"
 else:
     tip = "👌 天气正常，放心出门溜达"
-if "雨" in weather:
+if "雨" in combined_weather_str:
     st.write("记得带好umbrella哦！")
 
 st.subheader("🌡️ tomorrow温度记录")
@@ -102,13 +102,13 @@ if st.button("📥 保存到 D 盘"):
     with open(file_path, "a", encoding="utf-8") as f:
         f.write("="*30 + "\n")
         f.write(f"记录时间：{date.today()}\n")
-        f.write(f"心情：{mood}\n")
+        f.write(f"心情：{final_mood}\n")
         f.write(f"今日碎碎念：{note}\n")
         f.write("-"*30 + "\n")
         f.write(f"明日天气：{weather}\n")
         f.write(f"温度：{low}°C ~ {high}°C\n")
         f.write(f"提醒：{tip}\n")
-        f.write(f"明日计划：\n{tdl}\n")
+        f.write(f"明日计划：\n{tdl_text}\n")
         f.write("="*30 + "\n\n")
     st.success("✅ 已写入 D:\\daily record\\生活手账.txt")
 
@@ -116,7 +116,7 @@ if st.button("📥 保存到 D 盘"):
 st.divider()
 st.subheader("📖 历史 TDL")
 try:
-    with open("D:\daily record\生活手账.txt","r",encoding="utf-8") as f:
+    with open(r"D:\我\daily record\生活手账.txt","r",encoding="utf-8") as f:
         st.text(f.read())
 except FileNotFoundError:
     st.info("还没有记录")
