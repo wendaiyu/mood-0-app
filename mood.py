@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import date
 import random
+import os
 
 st.title("🌤 小小的记录")
 
