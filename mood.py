@@ -47,19 +47,20 @@ st.divider()
 tomorrow_plan = st.text_area("明天有任务吗bb🤗?对明天的自己有想说的嘛",height=120)
 
 if st.button("📥 提交"):
-    submit_time = datetime.now().strftime("%H:%M:%S")
+    bj_time = datetime.utcnow() + timedelta(hours=8)
+    submit_time = bj_time.strftime("%Y-%m-%d %H:%M:%S")
     content = f"""
 === 新记录 ===
-        ("🧸", "昵称", nickname or "匿名小朋友"),
-        ("📍", "坐标", where or "未知"),
-        ("🕒", "填表时间", f"{date.today()} {submit_time}"),
-        ("😊", "心情", final_mood),
-        ("📝", "碎碎念", note or "（无）"),
-        ("☁️", "天气", weather_str),
-        ("🌡️", "温度", f"{low}°C ~ {high}°C"),
-        ("👉", "系统提醒", tip),
-        ("🎯", "现在想做", now_do or "（无）"),
-        ("📅", "明天计划", tomorrow_plan or "（无）"),
+        ("🧸", "昵称", {nickname} ),
+        ("📍", "坐标", {where} ),
+        ("🕒", "填表时间",  {submit_time}"),
+        ("😊", "心情", {final_mood}),
+        ("📝", "碎碎念", {note} ),
+        ("☁️", "天气", {weather_str}),
+        ("🌡️", "温度", {low}°C ~ {high}°C),
+        ("👉", "系统提醒", {tip}),
+        ("🎯", "现在想做", {now_do} ),
+        ("📅", "明天计划", {tomorrow_plan} ),
 """
     try:
         msg = MIMEText(content, "plain", "utf-8")
