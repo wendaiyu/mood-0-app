@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 import smtplib
 from email.mime.text import MIMEText
-from datetime import datetime
+from datetime import datetime, timedelta
 
 st.title("🌤 小小的记录")
 nickname = st.text_input("✨ 今天想叫什么", placeholder="取个可爱的昵称吧")
