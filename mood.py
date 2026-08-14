@@ -2,8 +2,12 @@ import streamlit as st
 from datetime import date
 import random
 import os
+import smtplib
+from email.mime.text import MIMEText
 
 st.title("🌤 小小的记录")
+nickname = st.text_input("✨ 今天想叫什么", placeholder="取个可爱的昵称吧")
+where = st.text_input("📍 现在在哪儿", placeholder="上海 / 无锡 / 梦里 / 被窝里/......")
 
 #记录今天
 st.subheader("😊 今日心情")
@@ -42,8 +46,6 @@ with col2:
 final_mood = f"{mood} {mood_desc}".strip()
 note = st.text_area("写点什么...(今天做了什么，想了什么，想做什么，没做成什么）",height=100)
 
-if st.button("保存"):
-    st.success("successfully spend a day!")
 
 st.divider()
 st.subheader("明天")
@@ -69,7 +71,7 @@ weather = st.multiselect(
         weather_options,
         default=["☁️ 阴天 / 灰蒙蒙"]  # 默认选一个，防止用户什么都不选
     )
-st.write("明天天气be like：",weather)
+
 combined_weather_str = "".join(weather)
 if "雨" in combined_weather_str or "雪" in combined_weather_str or "台风" in combined_weather_str:
     tip = "☔️ 记得带伞和外套，路上小心"
@@ -79,8 +81,7 @@ elif "雾" in combined_weather_str or "霾" in combined_weather_str:
     tip = "😷 空气质量一般，出门戴口罩"
 else:
     tip = "👌 天气正常，放心出门溜达"
-if "雨" in combined_weather_str:
-    st.write("记得带好umbrella哦！")
+
 
 st.subheader("🌡️ tomorrow温度记录")
 
@@ -90,33 +91,32 @@ high = st.number_input("最高温（°C）", value=28, step=1)
 st.divider()
 tdl_text = st.text_area("写一点明天要做的事情吧！一条也行！",height=120)
 
-if st.button("📥 保存到 D 盘"):
-    # 1. D盘路径（绝对路径）
-    save_dir = r"D:\我\daily record"
-    os.makedirs(save_dir, exist_ok=True)   # 没有文件夹就自动创建
-    file_path = os.path.join(save_dir, "生活手账.txt")
-    if "雨" in weather:
-        tip = "记得带 umbrella 和 coat 🌂"
-    else:
-        tip = "不用带伞，放心出门"
-    with open(file_path, "a", encoding="utf-8") as f:
-        f.write("="*30 + "\n")
-        f.write(f"记录时间：{date.today()}\n")
-        f.write(f"心情：{final_mood}\n")
-        f.write(f"今日碎碎念：{note}\n")
-        f.write("-"*30 + "\n")
-        f.write(f"明日天气：{weather}\n")
-        f.write(f"温度：{low}°C ~ {high}°C\n")
-        f.write(f"提醒：{tip}\n")
-        f.write(f"明日计划：\n{tdl_text}\n")
-        f.write("="*30 + "\n\n")
-    st.success("✅ 已写入 D:\\daily record\\生活手账.txt")
+if st.button("📥 提交"):
+    # 把网页上填的内容拼成一封信
+    content = f"""
+=== 新记录 ===
+🧸 昵称：{nickname or '匿名小朋友'}
+📮 坐标：{where or '未知'}
+日期：{date.today()}
+心情：{final_mood}
+碎碎念：{note}
+天气：{combined_weather_str}
+温度：{low}°C ~ {high}°C
+明日计划：{tdl_text}
+"""
 
-#展示历史
-st.divider()
-st.subheader("📖 历史 TDL")
-try:
-    with open(r"D:\我\daily record\生活手账.txt","r",encoding="utf-8") as f:
-        st.text(f.read())
-except FileNotFoundError:
-    st.info("还没有记录")
+# 发邮件
+msg = MIMEText(content, "plain", "utf-8")
+msg["Subject"] = "有人填了你的生活手账"
+msg["From"] = "3866015403@qq.com"
+
+password = "kgrkbzhrwgrscdej"  
+
+server = smtplib.SMTP_SSL("smtp.qq.com", 465)
+server.login("3866015403@qq.com", password)
+server.sendmail("3866015403@qq.com", "3866015403@qq.com", msg.as_string())
+server.quit()
+
+st.success("✅ 提交成功！")
+with st.expander("📄 刚提交的内容（邮件已发出）"):
+    st.text(content)
