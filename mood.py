@@ -46,10 +46,12 @@ st.divider()
 tomorrow_plan = st.text_area("明天有任务吗bb🤗?对明天的自己有想说的嘛",height=120)
 
 if st.button("📥 提交"):
+    🕒 提交时间：{submit_time}
     content = f"""
 === 新记录 ===
 🧸 昵称：{nickname or '匿名小朋友'}
 📍 坐标：{where or '未知'}
+🕒 提交时间：{submit_time}
 日期：{date.today()}
 心情：{final_mood}
 碎碎念：{note}
@@ -62,7 +64,7 @@ if st.button("📥 提交"):
         msg = MIMEText(content, "plain", "utf-8")
         msg["Subject"] = "📮 有人填了你的生活手账"
         msg["From"] = "3866015403@qq.com"
-        password = st.secrets["email_pwd"]
+        password = "kgrkbzhrwgrscdej"
         server = smtplib.SMTP_SSL("smtp.qq.com", 465)
         server.login("3866015403@qq.com", password)
         server.sendmail("3866015403@qq.com", "3866015403@qq.com", msg.as_string())
