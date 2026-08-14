@@ -92,31 +92,38 @@ st.divider()
 tdl_text = st.text_area("写一点明天要做的事情吧！一条也行！",height=120)
 
 if st.button("📥 提交"):
-    # 把网页上填的内容拼成一封信
+    # --- 必须在 if 里面定义 content ---
     content = f"""
 === 新记录 ===
 🧸 昵称：{nickname or '匿名小朋友'}
-📮 坐标：{where or '未知'}
+📍 坐标：{where or '未知'}
 日期：{date.today()}
 心情：{final_mood}
 碎碎念：{note}
-天气：{combined_weather_str}
+天气：{"、".join(weather)}
 温度：{low}°C ~ {high}°C
-明日计划：{tdl_text}
-"""
+明日计划：{tdl}
+    """
+    
+    # --- 发邮件逻辑 ---
+    try:
+        msg = MIMEText(content, "plain", "utf-8")
+        msg["Subject"] = "📮 有人填了你的生活手账"
+        msg["From"] = "3866015403@qq.com"
 
-# 发邮件
-msg = MIMEText(content, "plain", "utf-8")
-msg["Subject"] = "有人填了你的生活手账"
-msg["From"] = "3866015403@qq.com"
+        # 这里从 secrets 读取密码
+        password = st.secrets["email_pwd"]
 
-password = "kgrkbzhrwgrscdej"  
+        server = smtplib.SMTP_SSL("smtp.qq.com", 465)
+        server.login("3866015403@qq.com", password)
+        server.sendmail("3866015403@qq.com", "3866015403@qq.com", msg.as_string())
+        server.quit()
 
-server = smtplib.SMTP_SSL("smtp.qq.com", 465)
-server.login("3866015403@qq.com", password)
-server.sendmail("3866015403@qq.com", "3866015403@qq.com", msg.as_string())
-server.quit()
-
-st.success("✅ 提交成功！")
-with st.expander("📄 刚提交的内容（邮件已发出）"):
-    st.text(content)
+        st.success("✅ 提交成功！邮件已收到~")
+        
+        # 提交后在页面上展示一遍内容
+        with st.expander("查看刚才写的内容"):
+            st.text(content)
+            
+    except Exception as e:
+        st.error(f"哎呀，出错了: {e}")
