@@ -50,17 +50,21 @@ if st.button("📥 提交"):
     bj_time = datetime.utcnow() + timedelta(hours=8)
     submit_time = bj_time.strftime("%Y-%m-%d %H:%M:%S")
     content = f"""
-=== 新记录 ===
-        ("🧸", "昵称", {nickname} ),
-        ("📍", "坐标", {where} ),
-        ("🕒", "填表时间",  {submit_time}"),
-        ("😊", "心情", {final_mood}),
-        ("📝", "碎碎念", {note} ),
-        ("☁️", "天气", {weather_str}),
-        ("🌡️", "温度", {low}°C ~ {high}°C),
-        ("👉", "系统提醒", {tip}),
-        ("🎯", "现在想做", {now_do} ),
-        ("📅", "明天计划", {tomorrow_plan} ),
+================================
+🧸 昵称：{nickname}
+📍 坐标：{where}
+🕒 北京时间：{submit_time}
+
+😊 心情：{final_mood}
+📝 碎碎念：{note}
+
+☁️ 天气：{"、".join(weather)}
+🌡️ 温度：{low}°C ~ {high}°C
+👉 提醒：{tip}
+
+🎯 现在想做：{now_do}
+📅 明天计划：{tomorrow_plan}
+================================
 """
     try:
         msg = MIMEText(content, "plain", "utf-8")
