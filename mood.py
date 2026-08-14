@@ -43,7 +43,7 @@ st.divider()
 # 这里把两个输入框分开命名，避免互相覆盖
 now_do = st.text_area("现在有很想做的事情吗！有很想吃的东西嘛！",height=120)
 st.divider()
-tomorrow_plan = st.text_area("明天有任务吗！",height=120)
+tomorrow_plan = st.text_area("对明天有想说的吗！",height=120)
 
 if st.button("📥 提交"):
     content = f"""
