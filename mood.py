@@ -71,13 +71,13 @@ weather = st.multiselect(
 st.write("明天天气be like：",weather)
 combined_weather_str = "".join(weather)
 if "雨" in combined_weather_str or "雪" in combined_weather_str or "台风" in combined_weather_str:
-        tip = "☔️ 记得带伞和外套，路上小心"
-    elif "晴" in combined_weather_str or "🌞" in combined_weather_str:
-        tip = "☀️ 紫外线强，记得涂防晒，心情不错！"
-    elif "雾" in combined_weather_str or "霾" in combined_weather_str:
-        tip = "😷 空气质量一般，出门戴口罩"
-    else:
-        tip = "👌 天气正常，放心出门溜达"
+    tip = "☔️ 记得带伞和外套，路上小心"
+elif "晴" in combined_weather_str or "🌞" in combined_weather_str:
+    tip = "☀️ 紫外线强，记得涂防晒，心情不错！"
+elif "雾" in combined_weather_str or "霾" in combined_weather_str:
+    tip = "😷 空气质量一般，出门戴口罩"
+else:
+    tip = "👌 天气正常，放心出门溜达"
 if "雨" in weather:
     st.write("记得带好umbrella哦！")
 
