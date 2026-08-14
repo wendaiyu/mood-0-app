@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import date
 import smtplib
 from email.mime.text import MIMEText
+from datetime import datetime
 
 st.title("🌤 小小的记录")
 nickname = st.text_input("✨ 今天想叫什么", placeholder="取个可爱的昵称吧")
@@ -18,7 +19,7 @@ with col1:
 with col2:
     mood_desc = st.text_input("💭 为什么会这样呢？（选填）", value="", placeholder="比如吃到了好吃的...")
 final_mood = f"{mood} {mood_desc}".strip()
-note = st.text_area("写点什么吧，对今天",height=100)
+note = st.text_area("今天有什么想记录的吗",height=100)
 
 st.divider()
 st.subheader("明天")
