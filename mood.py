@@ -16,6 +16,6 @@ st.divider()
 st.subheader("明天穿什么")
 
 weather = (["晴 ☀️", "雨 🌧️", "阴 ☁️"])
-st.writer("明天天气be like：",weather)
+st.write("明天天气be like：",weather)
 if "雨" in weather:
     st.write("记得带好umbrella和coat哦！")
