@@ -44,7 +44,7 @@ with col2:
 # 如果用户输入了描述，就拼上去；如果没输入，就只保留原来的标签
 # 加个空格隔开，看着舒服
 final_mood = f"{mood} {mood_desc}".strip()
-note = st.text_area("写点什么...(今天做了什么，想了什么，想做什么，没做成什么）",height=100)
+note = st.text_area("写点什么吧！对今天的你",height=100)
 
 
 st.divider()
@@ -89,7 +89,10 @@ low = st.number_input("最低温（°C）", value=20, step=1)
 high = st.number_input("最高温（°C）", value=28, step=1)
 
 st.divider()
-tdl_text = st.text_area("写一点明天要做的事情吧！一条也行！",height=120)
+tdl_text = st.text_area("现在想做什么！",height=120)
+
+st.divider()
+tdl_text = st.text_area("明天有任务吗！",height=120)
 
 if st.button("📥 提交"):
     # --- 必须在 if 里面定义 content ---
