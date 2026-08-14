@@ -18,7 +18,7 @@ with col1:
 with col2:
     mood_desc = st.text_input("💭 为什么会这样呢？（选填）", value="", placeholder="比如吃到了好吃的...")
 final_mood = f"{mood} {mood_desc}".strip()
-note = st.text_area("写点什么吧！对今天的你",height=100)
+note = st.text_area("写点什么吧，对今天",height=100)
 
 st.divider()
 st.subheader("明天")
@@ -46,7 +46,7 @@ st.divider()
 tomorrow_plan = st.text_area("明天有任务吗bb🤗?对明天的自己有想说的嘛",height=120)
 
 if st.button("📥 提交"):
-    🕒 提交时间：{submit_time}
+    submit_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     content = f"""
 === 新记录 ===
 🧸 昵称：{nickname or '匿名小朋友'}
